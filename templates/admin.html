@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>لوحة التحكم</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .admin-actions form { display:inline-block; margin-left:8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>لوحة التحكم</h1>
+    <nav><a href="{{ url_for('logout') }}">خروج</a> | <a href="{{ url_for('index') }}">الرئيسية</a></nav>
+  </header>
+  <main>
+    <h2>تعديل ترتيب الفرق</h2>
+    <table class="standings">
+      <thead><tr><th>الفصل</th><th>النقاط</th><th>فوز</th><th>خسارة</th><th>أجراءات</th></tr></thead>
+      <tbody>
+      {% for t in data.get("teams",[]) %}
+        <tr>
+          <td>{{ t.name }}</td>
+          <td>{{ t.points }}</td>
+          <td>{{ t.wins }}</td>
+          <td>{{ t.losses }}</td>
+          <td class="admin-actions">
+            <form method="post" action="{{ url_for('admin_update') }}">
+              <input type="hidden" name="team_id" value="{{ t.id }}">
+              <input type="hidden" name="action" value="add_win">
+              <button type="submit">أضف فوز (+3 نقاط)</button>
+            </form>
+            <form method="post" action="{{ url_for('admin_update') }}">
+              <input type="hidden" name="team_id" value="{{ t.id }}">
+              <input type="hidden" name="action" value="add_loss">
+              <button type="submit">أضف خسارة</button>
+            </form>
+            <form method="post" action="{{ url_for('admin_update') }}">
+              <input type="hidden" name="team_id" value="{{ t.id }}">
+              <input type="hidden" name="action" value="set_points">
+              <input name="value" placeholder="نقاط جديدة" style="width:80px">
+              <button type="submit">حط نقاط</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </main>
+  <footer></footer>
+</body>
+</html>

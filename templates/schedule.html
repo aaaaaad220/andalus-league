@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>جدول المباريات</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>دوري أبطال الأندلس & Andalusian Champions League</h1>
+        <a href="#" id="logo-link" style="position: absolute; top: 10px; right: 10px;">
+      <img src="https://cdn.discordapp.com/attachments/1407546909853356052/1424772627251331112/1447-04-14_15.33.50_bdb6d4bb.jpg?ex=68e52a69&is=68e3d8e9&hm=b8396a8d0eef15ba28f5797e0df78d66bf6722d7cd17d60c54a61c9ee0c0f180&" alt="شعار" style="width: 60px; height: 60px; border-radius: 50%;">
+    </a>
+
+    <nav>
+      <a href="{{ url_for('schedule') }}">جدول المباريات</a>
+      <a href="{{ url_for('lineup') }}">التشكيلة</a>
+      <a href="{{ url_for('standings') }}">جدول الترتيب</a>
+<a class="admin" href="{{ url_for('dashboard') }}" style="position: absolute; top: 10px; left: 10px; background: #eee; padding: 8px 16px; border-radius: 8px; text-decoration: none;">لوحة تحكم</a>    </nav>
+  </header>
+  <main>
+    <h2>جدول المباريات</h2>
+    <table class="matches">
+      <thead><tr><th>التاريخ</th><th>الفريق الأول</th><th>النتيجة</th><th>الفريق الثاني</th></tr></thead>
+      <tbody>
+      {% for m in data.get("matches",[]) %}
+        <tr>
+          <td>{{ m.date }}</td>
+          <td>{{ m.team_a }}</td>
+          <td>{{ m.score }}</td>
+          <td>{{ m.team_b }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </main>
+  <footer>دوري أبطال الأندلس & صنع من قبل Faris 801</footer>
+</body>
+</html>

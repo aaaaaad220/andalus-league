@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>لوحة التحكم - تسجيل دخول</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header style="position: relative; height: 80px;">
+    <!-- صورة في الزاوية اليمنى العليا -->
+    <img src="https://cdn.discordapp.com/attachments/1407546909853356052/1424772627251331112/1447-04-14_15.33.50_bdb6d4bb.jpg?ex=68e52a69&is=68e3d8e9&hm=b8396a8d0eef15ba28f5797e0df78d66bf6722d7cd17d60c54a61c9ee0c0f180&" alt="شعار" style="position: absolute; top: 10px; right: 10px; width: 60px; height: 60px; border-radius: 50%;">
+    <!-- لوحة التحكم يسار فوق -->
+    <h1 style="position: absolute; top: 10px; left: 10px; margin: 0; background: #eee; padding: 8px 16px; border-radius: 8px;">لوحة التحكم</h1>
+  </header>
+  <main class="center">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for cat,msg in messages %}
+          <div class="flash {{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="{{ url_for('dashboard') }}" class="login-form">
+      <label>اسم المستخدم</label>
+      <input name="username" required>
+      <label>كلمة السر</label>
+      <input name="password" type="password" required>
+      <label>MAC Address (أدخل الماك الخاص بالجهاز)</label>
+      <input name="mac" required placeholder="مثال: 00:1A:2B:3C:4D:5E">
+      <button type="submit">دخول</button>
+    </form>
+    <p class="note">ملاحظة: في هذا المشروع، يتم التحقق من MAC من خلال إدخاله يدوياً ومطابقته مع users.json.</p>
+  </main>
+  <footer></footer>
+</body>
+</html>
